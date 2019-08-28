@@ -1,0 +1,28 @@
+# O arquivo .htaccess é parte do apache e é responsável por fazer alguns tratamentos nas requisições
+# antes de enviálas devidamente para o php.
+#
+# Nosso objetivo ao configurar esse arquivo é fazer com que uma url do tipo:
+# - www.url.com/controller/model/arg0/arg1....
+# 
+# seja enviada para o nosso php como se fosse algo do gênero
+# - www.url.com?q=/controller/model/arg0/arg1
+# 
+# pois dessa forma podemos trabalhar com o caminho a url de forma amigável como se fosse
+# um parâmetro recebido por GET.
+#
+# Obs: é importante que rotas como www.url.com/src/style.css não sejam afetadas pois isso
+# complicaria nossa vida ao adicionar arquivos na view. 
+
+# Ativando a Rewrite Engine do Apache
+RewriteEngine On
+
+	# as regras abaixo não afetarão url's que linkan arquivos
+	RewriteCond %{SCRIPT_FILENAME} !-f
+
+	# as regras abaixo não afetarão url's que linkan diretórios
+	RewriteCond %{SCRIPT_FILENAME} !-d
+
+	# essa regra simplesmente garante que não importa qual seja a url, todas as requisições irão
+	# se referir ao arquivo index (isso é importante pois ele que carrega o funcionamento do MVC).
+	# Além disso, ela copia toda a string de path para um GET que chamamos de 'q'
+	RewriteRule ^(.*)$ index.php?q=$1 [L]
