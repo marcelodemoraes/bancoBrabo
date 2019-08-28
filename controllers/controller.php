@@ -1,9 +1,6 @@
 <?php 
 	if(!defined('BASE_PATH')) { exit('Acesso não autorizado!'); } 
 	
-	// Variável Global para passagem de parâmetros às Views
-	$view_data = array();
-
 	/**
 	 * Esta é uma classe pai dos Controllers e deve ser herdada por todos os Controllers
 	 * criados.
