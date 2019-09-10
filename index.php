@@ -46,6 +46,7 @@
 	}
 
 	// Configurações do Banco de Dados
+	$dbConfig = array();
 	require(BASE_PATH.'/database.php');
 
 	/**

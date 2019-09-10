@@ -11,7 +11,8 @@
 
 		// executado na url dominio.com.br/conta
 		public function index() {
-			// @TODO: Mostra o painel inicial com os dados da conta
+			// A função index() invoca a mesma tela do que a tela de Saldo.
+			$this->saldo();
 		}
 
 		// executado na url dominio.com.br/conta/extrato
@@ -21,7 +22,20 @@
 
 		// executado na url dominio.com.br/conta/saldo
 		public function saldo() {
-			// @TODO: Aqui deve mostrar o saldo atual.
+			// Esta tela irá exibir os dados básicos da conta de um usuário.
+			// Ela servirá como painel principal.
+			// Por enquanto o $userId é fixo, mas ele deverá ser carregado da 
+			// $_SESSION[] atual do usuário utilizando o sistema.
+
+			$userId = 1;
+			$contaModel = $this->carregarModel('conta');
+			$dadosConta = $contaModel->buscarConta($userId);
+
+			if(is_array($dadosConta)){
+				$this->carregarView('conta/cliente-dashboard', $dadosConta);
+			} else {
+				$this->carregarView('conta/cliente-dashboard');
+			}
 		}
 
 		// executado na url dominio.com.br/conta/sacar
