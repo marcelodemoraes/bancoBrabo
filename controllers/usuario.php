@@ -30,7 +30,7 @@
 		// executado na url dominio.com.br/usuario/cadastrar
 		public function cadastrar() {
 			// @TODO: Aqui deve entrar a página com o formulário de
-			// cadastro.
+			$this->carregarView("usuario/formulario-cadastro");
 		}
     
 }
