@@ -13,7 +13,7 @@
 		<h1>Formulário de Cadastro</h1>
 		<input type="text"   name="nome"      placeholder="Insira seu nome!"/>
 		<input type="text"   name="sobrenome" placeholder="Insira seu sobrenome!"/>
-		<input type="submit" name="btn-cadastrar" value="Enviar Cadastro"/ >
+		<input type="submit" name="btn-cadastrar" value="Enviar Cadastro"/>
 	</form>
 
 	<!-- A verificação abaixo é necessária para saber se o array de dados da view foi utilizado. -->
