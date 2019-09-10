@@ -46,12 +46,7 @@
 	}
 
 	// Configurações do Banco de Dados
-	$db_config = array(
-		'host'	=>	'localhost',
-		'name'	=>	'~~',
-		'user'	=>	'~~',
-		'pass'	=>	'~~',
-	);
+	require(BASE_PATH.'/database.php');
 
 	/**
 	 * Finalizada as configurações desse arquivo segumos para o próximo.
