@@ -45,6 +45,14 @@
 		ini_set('display_errors', 1);
 	}
 
+	// Configurações do Banco de Dados
+	$db_config = array(
+		'host'	=>	'localhost',
+		'name'	=>	'~~',
+		'user'	=>	'~~',
+		'pass'	=>	'~~',
+	);
+
 	/**
 	 * Finalizada as configurações desse arquivo segumos para o próximo.
 	 */
