@@ -45,6 +45,9 @@
 		ini_set('display_errors', 1);
 	}
 
+	// Configurações do Banco de Dados
+	require(BASE_PATH.'/database.php');
+
 	/**
 	 * Finalizada as configurações desse arquivo segumos para o próximo.
 	 */
