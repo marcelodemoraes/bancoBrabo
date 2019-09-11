@@ -21,7 +21,7 @@
  *                Caso o Controller exista e o método também, o objeto é instânciado e executado. Caso
  *                contrário o usuário recebe um 404.
  */
-
+ 
 	// Caminho para o diretório base do projeto
 	define('BASE_PATH', __DIR__ );
 
@@ -46,6 +46,7 @@
 	}
 
 	// Configurações do Banco de Dados
+	$dbConfig = array();
 	require(BASE_PATH.'/database.php');
 
 	/**
