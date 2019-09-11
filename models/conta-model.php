@@ -19,7 +19,7 @@
 				return false;
 			}
 
-			$accountNumber = (empty($accountNumber)) ? '10000X' : $accountNumber;
+			$accountNumber = (empty($accountNumber)) ? '100002' : $accountNumber;
 
 			// 2 - Criando a nova conta no Banco de Dados
 			try {
@@ -68,6 +68,44 @@
 					$stmt = $conn->prepare($sql);
 					$stmt->bindParam(1, $userId, PDO::PARAM_INT);
 					$stmt->execute();
+
+					// Para multiplos resultados precisa utilizar fetchAll();
+					$result = $stmt->fetch(PDO::FETCH_ASSOC);
+					
+					if($stmt->rowCount() == 1){
+						return $result;
+					}
+				}
+			} catch (Exception $e){
+				// echo $e->getMessage();
+			}
+
+			return false;
+		}
+
+		// A função recebe busca uma conta no banco porém por meio de seu 'accountNumber'
+		// - $dadosConta em caso de sucesso
+		// - false em caso de falha.
+		public function buscarContaAccountNumber($accountNumber){
+			
+			// Avisando ao PHP que vou utilizar a variável global$dbConfig;
+			global $dbConfig;
+
+			// Verificando se o valor passado é numérico e válido.
+			if(is_null($accountNumber) || !is_numeric($accountNumber)){
+				return false;
+			}
+
+			// Buscando os dados da conta por meio do $userId
+			try {
+				// Abre a conexão com o banco
+				$conn = new PDO($dbConfig['dsn'], $dbConfig['user'], $dbConfig['pass']);
+				$sql  = "SELECT * FROM account WHERE accountNumber = $accountNumber LIMIT 1";
+
+				if($conn){
+					// Prepara a query, executa e retorna o resultado
+					$stmt = $conn->prepare($sql);
+					$stmt->execute([$accountNumber]);
 
 					// Para multiplos resultados precisa utilizar fetchAll();
 					$result = $stmt->fetch(PDO::FETCH_ASSOC);

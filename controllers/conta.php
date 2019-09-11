@@ -30,6 +30,7 @@
 			$userId = 1;
 			$contaModel = $this->carregarModel('conta');
 			$dadosConta = $contaModel->buscarConta($userId);
+			// $dadosConta = $contaModel->buscarContaAccountNumber('10001');
 
 			if(is_array($dadosConta)){
 				$this->carregarView('conta/cliente-dashboard', $dadosConta);
@@ -58,6 +59,9 @@
 		// executado na url dominio.com.br/conta/transferir
 		public function transferir() {
 			// @TODO: Tela de transferencia de uma conta A para uma conta B.
+			//        Para isso ela deve primeiro verificar e atualizar o saldo de ambos os
+			//        usuários e, em seguida, cadastrar uma nova movimentação/transferencia 
+			//        no banco de dados.
 		}
     
 }
