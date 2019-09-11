@@ -40,7 +40,19 @@
 
 		// executado na url dominio.com.br/conta/sacar
 		public function sacar() {
-			// @TODO: Realiza o saque de um valer.
+			// Esta tela servirá para o usuário "Sacar" uma quantia de seu saldo.
+			// Neste caso, o seu saldo atual deve ser carregado e um valor deve ser subtraido do mesmo.
+
+			$userId = 1;
+			$contaModel = $this->carregarModel('conta');
+			$dadosConta = $contaModel->buscarConta($userId);
+
+			if(is_array($dadosConta) && $dadosConta['balance'] >= 100.50 ){
+				$contaModel->atualizarSaldo($dadosConta['id'], $dadosConta['balance']-50.0);
+				$dadosConta['balance'] -= 50.0;
+			}
+
+			$this->carregarView('conta/cliente-dashboard', $dadosConta);
 		}
 
 		// executado na url dominio.com.br/conta/transferir
