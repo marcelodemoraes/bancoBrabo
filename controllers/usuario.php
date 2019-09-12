@@ -30,7 +30,18 @@
 		// executado na url dominio.com.br/usuario/cadastrar
 		public function cadastrar() {
 			// @TODO: Aqui deve entrar a página com o formulário de
-			$this->carregarView("usuario/formulario-cadastro");
+
+			if(isset($_POST['btn-cadastrar'])){
+				$login = (isset($_POST['login'])) ? $_POST['login'] : '';
+				$password = (isset($_POST['password'])) ? $_POST['password'] : '';
+				$name = (isset($_POST['name'])) ? $_POST['name'] : '';
+				
+				$usuarioModel = $this->carregarModel("usuario");
+				$resultado = $usuarioModel->cadastrasUsuario($login, $password, $name);
+			}
+			else{
+				$this->carregarView("usuario/formulario-cadastro");
+			}
 		}
     
 }
