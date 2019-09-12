@@ -196,26 +196,33 @@
 					<div class="span12">
 						<div class="cform" id="contact-form">
 							<div id="sendmessage">Your message has been sent. Thank you!</div>
-							<div id="errormessage"></div>
+							<div id="errormessage">olaoalola</div>
 							
 							<div class="row">
 								<div class="span6">
-									<form action="<?php echo BASE_URL; ?>" method="POST" role="form">
+									<form id="formulario-login" action="<?php echo BASE_URL; ?>#formulario-login" method="POST" role="form">
 										<div class="field your-name form-group">
 											<input type="text" name="login" class="form-control" id="login" placeholder="Login" required/>
 											<div class="validation"></div>
 										</div>
 										<div class="field your-email form-group">
-											<input type="password" class="form-control" name="senha" id="senha" placeholder="Senha" required/>
+											<input type="password" class="form-control" name="password" id="senha" placeholder="Senha" required/>
 											<div class="validation"></div>
 										</div>
-										<input type="submit" value="Entrar" class="btn btn-theme pull-left">
+										<input type="submit" name="btn-login" value="Entrar" class="btn btn-theme pull-left">
 									</form>	
+									<!-- Mensagens de Erro -->
+									<?php if(!is_null($viewData['formulario-cadastro']) && !$viewData['formulario-cadastro']): ?>
+										<div class="alert alert-error" style="clear: both;">
+											<button type="button" class="close" data-dismiss="alert">×</button>
+											<strong>Falha no Login!</strong><br/> Verifique se o login e a senha estão corretos.
+										</div>
+									<?php endif; ?>
 								</div>
 								<div class="span6">
-									<form method="POST"  action="<?php echo BASE_URL; ?>" role="form">
+									<form id="formulario-cadastro" method="POST"  action="<?php echo BASE_URL; ?>#formulario-cadastro" role="form">
 										<div class="field your-name form-group2"><div class="field your-name form-group2">
-											<input type="text" name="name" class="form-control" id="nome" placeholder="Nome" required/>
+											<input type="text" name="name" class="form-control" id="nome" placeholder="Nome e Sobrenome" required/>
 											<div class="validation"></div>
 										</div>
 											<input type="text" name="login" class="form-control" id="login" placeholder="Login" required />
@@ -227,9 +234,19 @@
 										</div>
 										<input type="submit" name="btn-cadastrar" value="Cadastrar" class="btn btn-theme pull-left">
 									</form>
-								</div>
+										<!-- Mensagens de erro ou sucesso -->
+									<?php if(!is_null($viewData['formulario-cadastro']) && !$viewData['formulario-cadastro']): ?>
+										<div class="alert alert-error" style="clear: both;">
+											<button type="button" class="close" data-dismiss="alert">×</button>
+											<strong>Erro ao cadastrar!</strong><br/> por favor, verifique se os dados estão preenchidos corrrtamente.
+										</div>
+									<?php elseif(!is_null($viewData['formulario-cadastro']) && $viewData['formulario-cadastro']): ?>
+										<div class="alert alert-success" style="clear: both;">
+											<button type="button" class="close" data-dismiss="alert">×</button>
+											<strong>Cadastro Realizado!</strong><br/> utilize o formulário abaixo para continuar.
+										</div>
+									<?php endif; ?>
 							</div>
-							
 						</div>
 					</div>
 					<!-- ./span12 -->

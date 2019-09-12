@@ -17,16 +17,22 @@
 		// executado na url dominio.com.br/usuario/login
 		public function login() {
 			
+			$dadosView = array(
+				'formulario-cadastro' => null,
+				'formulario-login'    => null,
+			);
+
 			// Verificando se o botão de cadastrar foi acionado. Em caso positivo chama
 			// o método para controlar os models corretamente.
 			if(isset($_POST['btn-cadastrar'])){
-				$this->cadastrar();
+				$dadosView['formulario-cadastro'] = $this->formCadastro();
 			}
 
+			if(isset($_POST['btn-login'])){
+				$dadosView['formulario-cadastro'] = $this->formLogin();
+			}
 
-
-
-			$this->carregarView("usuario/home");
+			$this->carregarView("usuario/home", $dadosView);
 		}
 
 		// executado na url dominio.com.br/usuario/logout
@@ -35,18 +41,43 @@
 			// chamar os métodos de login também.
 		}
 
+		// Encapsula todos os comandos ligados à função de fazer login
+		private function formLogin() {
+			if(isset($_POST['btn-login'])){
+				$login    = (isset($_POST['login'])) ? $_POST['login'] : '';
+				$password = (isset($_POST['password'])) ? $_POST['password'] : '';
+				
+				$usuarioModel = $this->carregarModel("usuario");
+				$userData = $usuarioModel->buscarUsuario($login, $password);
+
+				if(is_array($userData)){
+					echo "oi";
+				} else {
+					echo "nao entrou";
+				}
+				exit();
+			}
+
+			return false;
+		}
+
 		// Encapsula todos os comandos ligados à função de cadastrar uma nova conta.
-		private function cadastrar() {
+		private function formCadastro() {
 			if(isset($_POST['btn-cadastrar'])){
 				$login    = (isset($_POST['login'])) ? $_POST['login'] : '';
 				$password = (isset($_POST['password'])) ? $_POST['password'] : '';
 				$name     = (isset($_POST['name'])) ? $_POST['name'] : '';
 				
 				$usuarioModel = $this->carregarModel("usuario");
-				$resultado    = $usuarioModel->cadastrarUsuario($login, $password, $name);
-				echo $resultado;
-				exit();
+				$contaModel = $this->carregarModel("conta");
+				
+				$userId    = $usuarioModel->cadastrarUsuario($login, $password, $name);
+				$accountId = $contaModel->cadastrarConta($userId, 500);
+
+				return ($userId && $accountId);
 			}
+
+			return false;
 		}
     
 }

@@ -5,36 +5,33 @@
 	class ContaModel extends Model {
 
 		// Cadastra uma nova conta no sistema e retorna:
-		// - true/false em caso de sucesso/falha respectivamente.
+		// - $accountId/false em caso de sucesso/falha respectivamente.
 		public function cadastrarConta($userId, $balance, $accountNumber = ''){
 			
 			// Avisando ao PHP que vou utilizar a variável global $dbConfig;
 			global $dbConfig;
 
-			// 1 - Limpar e Validar os dados
-			// @TODO: Essa parte depende da UtilsModel, então vou ignorar por hora.
-			//        coloquei apenas a verificação básica do userId
-			//        O ideal é utilizar os filtros de XSS no accountNumber que é string.
-			if(is_null($accountId) || !is_numeric($accountId)){
+			// 1 Etapa - Limpando e validando os dados
+			if(is_null($userId) || !is_numeric($userId)){
 				return false;
 			}
 
-			$accountNumber = (empty($accountNumber)) ? '100002' : $accountNumber;
+			$accountNumber = strval(97185000 + $userId);
 
 			// 2 - Criando a nova conta no Banco de Dados
 			try {
 				// Abre a conexão com o banco
 				$conn = new PDO($dbConfig['dsn'], $dbConfig['user'], $dbConfig['pass']);
-				$sql  = "INSERT INTO account ('balance', 'accountNumber', 'userId') 
+				$sql  = "INSERT INTO account (balance, accountNumber, userId) 
 							VALUES (?,?,?);";
 
 				if($conn){
 				
 					$stmt = $conn->prepare($sql);
-					$stmt->execute([$balance, $accountNumber, $accountId]); 
+					$stmt->execute([$balance, $accountNumber, $userId]); 
 					
 					if($stmt->rowCount() == 1){
-						return true;
+						return $conn->lastInsertId();
 					}
 				}
 			} catch (Exception $e){

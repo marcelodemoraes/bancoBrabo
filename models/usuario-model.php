@@ -49,18 +49,55 @@
 						return $conn->lastInsertId();
 					}
 					
-				} else {
-					
-				}
+				} 
 			} catch (Exception $e){
-				echo $e->getMessage();
+				//echo $e->getMessage();
 			}
 
 			return false;
 		}
 
+		// A função recebe um $login e $senha e retorna:
+		// - $dadosConta em caso de sucesso
+		// - false em caso de falha
 		public function buscarUsuario($login, $password){
-			// Busca um usuarío e retorna seus dados
+			
+			$utils = $this->carregarModel('utils');
+
+			// Etapa 1 - Limpar e Validar os dados
+			if(is_null($login) || empty($login) || is_null($password) || empty($password)){
+				return false;
+			}
+
+			$dadosLimpos = $utils->xssFilter(array($login, $password));
+			$login    = trim($dadosLimpos[0]);
+			$password = trim($dadosLimpos[1]);
+
+			// Etapa 2 - Realizar a Query de busca
+			global $dbConfig;
+
+			// Buscando os dados da conta por meio do $userId
+			try {
+				// Abre a conexão com o banco
+				$conn = new PDO($dbConfig['dsn'], $dbConfig['user'], $dbConfig['pass']);
+				$sql  = "SELECT * FROM user WHERE login = ? AND password = ? LIMIT 1";
+
+				if($conn){
+					// Prepara a query, executa e retorna o resultado
+					$stmt = $conn->prepare($sql);
+					$stmt->execute([$login, md5($password)]);
+
+					// Para multiplos resultados precisa utilizar fetchAll();
+					$result = $stmt->fetch(PDO::FETCH_ASSOC);
+					if($stmt->rowCount() == 1){
+						return $result;
+					}
+				}
+			} catch (Exception $e){
+				// echo $e->getMessage();
+			}
+
+			return false;
 		}
 
 		public function buscarUsuarios(){
