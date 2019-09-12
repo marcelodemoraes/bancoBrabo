@@ -11,7 +11,8 @@
 		//Retorna um array, com parametros sanitizados na mesma ordem em que foi recebido 
 		public function xssFilter($params){
 			//Verifica se o input é um array
-			if (!(is_array($params))) {
+
+			if(!(is_array($params))){
 				//@TODO mensagem de erro
 			}
 			//itera sobre o array e modifica seus valores
