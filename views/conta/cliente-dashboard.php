@@ -1,14 +1,312 @@
+<?php if(!defined('BASE_PATH')) { exit('Acesso não autorizado!'); }  ?>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Banco Brabo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="O banco mais incrível de todos">
+	<meta name="author" content="Alexandre, Flávio, Gabriel, Marcelo, Yasmin">
+  <!-- styles -->
+  <link href="<?php echo SRC_PATH; ?>assets/css/bootstrap.css" rel="stylesheet">
+  <link href="<?php echo SRC_PATH; ?>assets/css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="<?php echo SRC_PATH; ?>assets/css/docs.css" rel="stylesheet">
+  <link href="<?php echo SRC_PATH; ?>assets/css/prettyPhoto.css" rel="stylesheet">
+  <link href="<?php echo SRC_PATH; ?>assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+  <link href="<?php echo SRC_PATH; ?>assets/css/flexslider.css" rel="stylesheet">
+  <link href="<?php echo SRC_PATH; ?>assets/css/refineslide.css" rel="stylesheet">
+  <link href="<?php echo SRC_PATH; ?>assets/css/font-awesome.css" rel="stylesheet">
+  <link href="<?php echo SRC_PATH; ?>assets/css/animate.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700" rel="stylesheet">
+
+  <link href="<?php echo SRC_PATH; ?>assets/css/style.css" rel="stylesheet">
+  <link href="<?php echo SRC_PATH; ?>assets/color/default.css" rel="stylesheet">
+
+  <!-- fav and touch icons -->
+  <link rel="shortcut icon" href="<?php echo SRC_PATH; ?>img/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo SRC_PATH; ?>assets/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo SRC_PATH; ?>assets/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo SRC_PATH; ?>assets/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="<?php echo SRC_PATH; ?>assets/ico/apple-touch-icon-57-precomposed.png">
+
+  <!-- =======================================================
+    Theme Name: Plato
+    Theme URL: https://bootstrapmade.com/plato-responsive-bootstrap-website-template/
+    Author: BootstrapMade.com
+    Author URL: https://bootstrapmade.com
+  ======================================================= -->
+</head>
+
 <body>
+  <header>
+    <!-- Navbar
+    ================================================== -->
+    <div class="cbp-af-header">
+      <div class=" cbp-af-inner">
+        <div class="container">
+          <div class="row">
 
-    <h1>CLIENTE/CONTA DASHBOARD</h1>
-    <?php 
-        if(array_key_exists('accountNumber', $viewData)){
-            print_r($viewData);
-        } 
-    ?>
+            <div class="span4">
+              <!-- logo -->
+              <div class="logo">
+                <img src="<?php echo SRC_PATH; ?>img/logo_banco_brabo.png" width="120px" alt="" />
+                <!-- <h1><a href="index.html">Banco Brabo</a></h1> -->
+              </div>
+              <!-- end logo -->
+            </div>
 
+            <div class="span8">
+              <!-- top menu -->
+              <div class="navbar">
+                <div class="navbar-inner">
+                  <nav>
+                    <ul class="nav topnav">
+                      <li class="dropdown active">
+                        <a href="<?php echo BASE_URL; ?>conta">HOME</a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="<?php echo BASE_URL; ?>usuario/logout">SAIR</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+              <!-- end menu -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section id="intro">
+
+    <div class="container">
+      <div class="row">
+        <div class="span6">
+          <h2><strong>Banco <span class="highlight primary">Brabo</span></strong> &nbsp;&nbsp; Olá @ganesher</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="maincontent">
+    <div class="container">
+      <div class="row">
+        <div class="span4">
+          <div class="features">
+              <div class="accordion" id="accordion6">
+                  <div class="accordion-group">
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle active" data-toggle="collapse" data-parent="#accordion6" href="#collapseOne">
+                      <i class="icon-caret-down"></i> Saldo </a>
+                    </div>
+                    <div id="collapseOne" class="accordion-body collapse in">
+                      <div class="accordion-inner center">
+                        <!-- inserir valor de acordo com saldo -->
+                        <h3>R$ 2.000,00</h3>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="span4">
+          <div class="features">
+              <div class="accordion" id="accordion5">
+                  <div class="accordion-group">
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapseTwo">
+                      <i class="icon-caret-right"></i> Transferência </a>
+                    </div>
+                    <div id="collapseTwo" class="accordion-body collapse">
+                      <div class="accordion-inner cta-box">
+                        <form action="" method="post" role="form" class="">
+                          <div class="span8 form-group">
+                            <!-- falta colocar em um form -->
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Conta Destino" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                            <div class="validation"></div>
+                          </div>
+                          <div class="span8 form-group">
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Valor" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                            <div class="validation"></div>
+                          </div>
+                          <div class="cta center">
+                            <input type="submit" value="Ok" class="btn btn-medium btn-rounded btn-color">
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="span4">
+          <div class="features">
+              <div class="accordion" id="accordion2">
+                  <div class="accordion-group">
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                      <i class="icon-caret-right"></i> Saque </a>
+                    </div>
+                    <div id="collapseThree" class="accordion-body collapse">
+                      <div class="accordion-inner cta-box">
+                        <form action="" method="post" role="form" class="">
+                          <div class="span8 form-group">
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Valor" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                            <div class="validation"></div>
+                          </div>
+                          <div class="cta center">
+                            <input type="submit" value="Ok" class="btn btn-medium btn-rounded btn-color">
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- blank divider -->
+      <div class="row">
+        <div class="span12">
+          <div class="blank8"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span12">
+          <div class="cta-box">
+            <div class="cta-text">
+              <h2>Extrato</h2>
+              <div class="span11">
+                <hr>
+
+              </div>
+              <div class="span12">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th> # </th>
+                        <th> Tipo </th>
+                        <th> Data </th>
+                        <th> Valor </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td> 1 </td>
+                        <td> Depósito </td>
+                        <td> 08/07/2019 </td>
+                        <td style="color: green"> R$ 2.870,00 </td>
+                      </tr>
+                      <tr>
+                        <td> 2 </td>
+                        <td> Saque </td>
+                        <td> 24/08/2019 </td>
+                        <td style="color:red"> R$ 70,00 </td>
+                      </tr>
+                      <tr>
+                        <td> 3 </td>
+                        <td> Transferência </td>
+                        <td> 12/09/2019 </td>
+                        <td style="color:red"> R$ 800,00 </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+          </div>
+          
+          <!-- end tagline -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- Footer
+ ================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="span3">
+          <div class="widget">
+            <!-- logo -->
+            <div class="footerlogo">
+              <h6><a href="index.html">Banco Brabo</a></h6>
+              <!-- <img src="<?php echo SRC_PATH; ?>assets/img/logo.png" alt="" /> -->
+            </div>
+            <!-- end logo -->
+            <address>
+				<strong>Banco Brabo business company, Inc.</strong><br>
+				 4455 Great building Ave, Suite A10<br>
+				 San Charles, SP 94107<br>
+				<abbr title="Phone">P:</abbr> (12) 3456-7890 </address>
+          </div>
+        </div>
+
+        <div class="span6">
+          <div class="widget center">
+            <h5>Keep updated</h5>
+            <ul class="social-network">
+              <li><a href="#"><i class="icon-bg-light icon-facebook icon-circled icon-1x"></i></a></li>
+              <li><a href="#" title="Twitter"><i class="icon-bg-light icon-twitter icon-circled icon-1x"></i></a></li>
+              <li><a href="#" title="Linkedin"><i class="icon-bg-light icon-linkedin icon-circled icon-1x"></i></a></li>
+              <li><a href="#" title="Pinterest"><i class="icon-bg-light icon-pinterest icon-circled icon-1x"></i></a></li>
+              <li><a href="#" title="Google plus"><i class="icon-bg-light icon-google-plus icon-circled icon-1x"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="subfooter">
+      <div class="container">
+        <div class="row">
+          <div class="span6">
+            <p>
+              &copy; Banco Brabo - All right reserved
+            </p>
+          </div>
+          <div class="span6">
+            <div class="pull-right">
+              <div class="credits">
+                <!--
+                  All the links in the footer should remain intact.
+                  You can delete the links only if you purchased the pro version.
+                  Licensing information: https://bootstrapmade.com/license/
+                  Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Plato
+                -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="<?php echo SRC_PATH; ?>assets/js/jquery.js"></script>
+  <script src="<?php echo SRC_PATH; ?>assets/js/modernizr.js"></script>
+  <script src="<?php echo SRC_PATH; ?>assets/js/jquery.easing.1.3.js"></script>
+  <script src="<?php echo SRC_PATH; ?>assets/js/google-code-prettify/prettify.js"></script>
+  <script src="<?php echo SRC_PATH; ?>assets/js/bootstrap.js"></script>
+  <script src="<?php echo SRC_PATH; ?>assets/js/jquery.prettyPhoto.js"></script>
+  <script src="<?php echo SRC_PATH; ?>assets/js/portfolio/jquery.quicksand.js"></script>
+  <script src="<?php echo SRC_PATH; ?>assets/js/portfolio/setting.js"></script>
+  <script src="<?php echo SRC_PATH; ?>assets/js/hover/jquery-hover-effect.js"></script>
+  <script src="<?php echo SRC_PATH; ?>assets/js/jquery.flexslider.js"></script>
+  <script src="<?php echo SRC_PATH; ?>assets/js/classie.js"></script>
+  <script src="<?php echo SRC_PATH; ?>assets/js/cbpAnimatedHeader.min.js"></script>
+  <script src="<?php echo SRC_PATH; ?>assets/js/jquery.refineslide.js"></script>
+  <script src="<?php echo SRC_PATH; ?>assets/js/jquery.ui.totop.js"></script>
+
+  <!-- Template Custom Javascript File -->
+  <script src="<?php echo SRC_PATH; ?>assets/js/custom.js"></script>
 
 </body>
+
 </html>

@@ -1,6 +1,4 @@
-<?php
-	if(!defined('BASE_PATH')) { exit('Acesso não autorizado!'); } 
-?>
+<?php if(!defined('BASE_PATH')) { exit('Acesso não autorizado!'); } ?>
 
 <head>
 	<title>Formulário de Cadastro</title>

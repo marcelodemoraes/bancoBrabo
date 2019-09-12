@@ -1,3 +1,4 @@
+<?php if(!defined('BASE_PATH')) { exit('Acesso não autorizado!'); } ?>
 <!DOCTYPE html>
 <html>
     <body>

@@ -14,14 +14,14 @@
 			$modelName = strtolower($modelName);
 
 			// Verificando o arquivo em que a classe se encontra
-			if(file_exists(BASE_PATH.'/models/'.$modelName.'.php')) {
-				require(BASE_PATH.'/models/'.$modelName.'.php');
+			if(file_exists(BASE_PATH.'/models/'.$modelName.'-model.php')) {
+				require(BASE_PATH.'/models/'.$modelName.'-model.php');
 			} else {
 				return null;
 			}
 
 			// Verificando se a Classe do Model existe
-			if(!$erro_rota && class_exists(ucwords($modelName).'Model')){
+			if(class_exists(ucwords($modelName).'Model')){
 				$modelName = ucwords($modelName).'Model';
 				return new $modelName;
 			} 
