@@ -16,8 +16,16 @@
 
 		// executado na url dominio.com.br/usuario/login
 		public function login() {
-			// @TODO: Aqui deve entrar a página de login e todas e
-			// chamar os métodos de login também.
+			
+			// Verificando se o botão de cadastrar foi acionado. Em caso positivo chama
+			// o método para controlar os models corretamente.
+			if(isset($_POST['btn-cadastrar'])){
+				$this->cadastrar();
+			}
+
+
+
+
 			$this->carregarView("usuario/home");
 		}
 
@@ -27,20 +35,17 @@
 			// chamar os métodos de login também.
 		}
 
-		// executado na url dominio.com.br/usuario/cadastrar
-		public function cadastrar() {
-			// @TODO: Aqui deve entrar a página com o formulário de
-
+		// Encapsula todos os comandos ligados à função de cadastrar uma nova conta.
+		private function cadastrar() {
 			if(isset($_POST['btn-cadastrar'])){
-				$login = (isset($_POST['login'])) ? $_POST['login'] : '';
+				$login    = (isset($_POST['login'])) ? $_POST['login'] : '';
 				$password = (isset($_POST['password'])) ? $_POST['password'] : '';
-				$name = (isset($_POST['name'])) ? $_POST['name'] : '';
+				$name     = (isset($_POST['name'])) ? $_POST['name'] : '';
 				
 				$usuarioModel = $this->carregarModel("usuario");
-				$resultado = $usuarioModel->cadastrasUsuario($login, $password, $name);
-			}
-			else{
-				$this->carregarView("usuario/formulario-cadastro");
+				$resultado    = $usuarioModel->cadastrarUsuario($login, $password, $name);
+				echo $resultado;
+				exit();
 			}
 		}
     

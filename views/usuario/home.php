@@ -197,9 +197,10 @@
 						<div class="cform" id="contact-form">
 							<div id="sendmessage">Your message has been sent. Thank you!</div>
 							<div id="errormessage"></div>
-							<form action="" method="post" role="form" class="contactForm">
-								<div class="row">
-									<div class="span6">
+							
+							<div class="row">
+								<div class="span6">
+									<form action="<?php echo BASE_URL; ?>" method="POST" role="form">
 										<div class="field your-name form-group">
 											<input type="text" name="login" class="form-control" id="login" placeholder="Login" required/>
 											<div class="validation"></div>
@@ -209,25 +210,26 @@
 											<div class="validation"></div>
 										</div>
 										<input type="submit" value="Entrar" class="btn btn-theme pull-left">
-									</div>
-								</form>
-								<form action="" method="post" role="form" class="contactForm">
-									<div class="span6">
-											<div class="field your-name form-group2"><div class="field your-name form-group2">
-													<input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" required/>
-													<div class="validation"></div>
-												</div>
-													<input type="text" name="login" class="form-control" id="login" placeholder="Login" required />
-													<div class="validation"></div>
-												</div>
-												<div class="field your-email form-group2">
-													<input type="password" class="form-control" name="senha" id="senha" placeholder="Senha" required />
-													<div class="validation"></div>
-												</div>
-										<input type="submit" value="Cadastrar" class="btn btn-theme pull-left">
-									</div>
+									</form>	
 								</div>
-							</form>
+								<div class="span6">
+									<form method="POST"  action="<?php echo BASE_URL; ?>" role="form">
+										<div class="field your-name form-group2"><div class="field your-name form-group2">
+											<input type="text" name="name" class="form-control" id="nome" placeholder="Nome" required/>
+											<div class="validation"></div>
+										</div>
+											<input type="text" name="login" class="form-control" id="login" placeholder="Login" required />
+											<div class="validation"></div>
+										</div>
+										<div class="field your-email form-group2">
+											<input type="password" class="form-control" name="password" id="senha" placeholder="Senha" required />
+											<div class="validation"></div>
+										</div>
+										<input type="submit" name="btn-cadastrar" value="Cadastrar" class="btn btn-theme pull-left">
+									</form>
+								</div>
+							</div>
+							
 						</div>
 					</div>
 					<!-- ./span12 -->

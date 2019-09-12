@@ -48,7 +48,6 @@
 		// - $dadosConta em caso de sucesso
 		// - false em caso de falha.
 		public function buscarConta($userId){
-			
 			// Avisando ao PHP que vou utilizar a variável global$dbConfig;
 			global $dbConfig;
 
@@ -100,7 +99,7 @@
 			try {
 				// Abre a conexão com o banco
 				$conn = new PDO($dbConfig['dsn'], $dbConfig['user'], $dbConfig['pass']);
-				$sql  = "SELECT * FROM account WHERE accountNumber = $accountNumber LIMIT 1";
+				$sql  = "SELECT * FROM account WHERE accountNumber = ? LIMIT 1";
 
 				if($conn){
 					// Prepara a query, executa e retorna o resultado
