@@ -16,10 +16,10 @@
 	 */
 
 	// Controller executado ao carregar o website
-	$home_controller = 'exemplo';
+	$home_controller = 'usuario';
 
 	// Método padrão executado ao carregar o website
-	$home_metodo     = 'index';
+	$home_metodo     = 'login';
 
 	// Quebrando a Query nos seguimentos
 	$q = ( isset($_GET['q']) ) ? $_GET['q'] : $home_controller.'/'.$home_metodo;
@@ -69,8 +69,9 @@
 	// por exemplo.
 	if($erro_rota){
 		header("HTTP/1.0 404 Not Found");
-		echo "<h1>404 Not Found</h1>";
-		echo "The page that you have requested could not be found.";
+		// echo "<h1>404 Not Found</h1>";
+		// echo "The page that you have requested could not be found.";
+		include(BASE_PATH."/views/404.php");
 		exit();
 	}
 

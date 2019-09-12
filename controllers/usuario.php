@@ -1,7 +1,7 @@
 <?php 
 	if(!defined('BASE_PATH')) { exit('Acesso não autorizado!'); } 
 	
-	class HomeController extends Controller {
+	class UsuarioController extends Controller {
 
 		// Construtor executado antes de todos os outros métodos
 		public function __construct() {
@@ -11,14 +11,14 @@
 
 		// executado na url dominio.com.br/usuario
 		public function index() {
-			// @TODO: Verifica se o usuario está online, se sim mostra o painel
-			// senao chama o login.
+			$this->login();
 		}
 
 		// executado na url dominio.com.br/usuario/login
 		public function login() {
 			// @TODO: Aqui deve entrar a página de login e todas e
 			// chamar os métodos de login também.
+			$this->carregarView("usuario/home");
 		}
 
 		// executado na url dominio.com.br/usuario/logout
