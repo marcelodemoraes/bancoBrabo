@@ -16,7 +16,7 @@
 
 			// Verificando o arquivo em que a classe se encontra
 			if(file_exists(BASE_PATH.'/models/'.$modelName.'-model.php')) {
-				require(BASE_PATH.'/models/'.$modelName.'-model.php');
+				require_once(BASE_PATH.'/models/'.$modelName.'-model.php');
 			} else {
 				return null;
 			}

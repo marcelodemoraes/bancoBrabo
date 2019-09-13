@@ -95,6 +95,38 @@
   <section id="maincontent">
     <div class="container">
       <div class="row">
+        <div class="span12">
+        <!-- Mensagens de Erro -->
+          <?php if($viewData['formulario-transferencia'] == 'erro'): ?>
+            <div class="alert alert-error" style="clear: both;">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Falha na Transferência!</strong><br/> Verifique os número da conta e o Saldo Disponível.
+            </div>
+          <?php elseif($viewData['formulario-transferencia'] == 'sucesso'): ?>
+            <div class="alert alert-success" style="clear: both;">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Transferência Realizada!</strong><br/> O valor desejado foi transferido e debitado do seu saldo.
+            </div>
+          <?php endif; ?>
+
+          <?php if($viewData['formulario-saque'] == 'erro'): ?>
+            <div class="alert alert-error" style="clear: both;">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Falha no Saque!</strong><br/> Verifique o valor inserido e o Saldo disponível!
+            </div>
+          <?php elseif($viewData['formulario-saque'] == 'sucesso'): ?>
+            <div class="alert alert-success" style="clear: both;">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Saque realizado!</strong><br/> O valor de saque foi debitado do seu saldo.
+            </div>
+          <?php endif; ?>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
         <div class="span4">
           <div class="features">
               <div class="accordion" id="accordion6">
@@ -106,7 +138,7 @@
                     <div id="collapseOne" class="accordion-body collapse in">
                       <div class="accordion-inner center">
                         <!-- inserir valor de acordo com saldo -->
-                        <h3>R$ 2.000,00</h3>
+                        <h3>R$ <?php echo number_format($viewData['account']['balance'], 2, ",","."); ?></h3>
                       </div>
                     </div>
                   </div>
@@ -123,18 +155,18 @@
                     </div>
                     <div id="collapseTwo" class="accordion-body collapse">
                       <div class="accordion-inner cta-box">
-                        <form action="" method="post" role="form" class="">
+                        <form action="<?php echo BASE_URL; ?>conta" method="POST" role="form" class="">
                           <div class="span8 form-group">
                             <!-- falta colocar em um form -->
-                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Conta Destino" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                            <input type="text" class="form-control" name="accountNumber" id="subject" placeholder="Conta Destino" data-rule="minlen:4" required/>
                             <div class="validation"></div>
                           </div>
                           <div class="span8 form-group">
-                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Valor" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                            <input type="text" class="form-control" name="amount" id="subject" placeholder="Valor" data-rule="minlen:4" required/>
                             <div class="validation"></div>
                           </div>
                           <div class="cta center">
-                            <input type="submit" value="Ok" class="btn btn-medium btn-rounded btn-color">
+                            <input type="submit" name="btn-transferir" value="Ok" class="btn btn-medium btn-rounded btn-color">
                           </div>
                         </form>
                       </div>
@@ -153,13 +185,13 @@
                     </div>
                     <div id="collapseThree" class="accordion-body collapse">
                       <div class="accordion-inner cta-box">
-                        <form action="" method="post" role="form" class="">
+                        <form action="<?php echo BASE_URL; ?>conta" method="post" role="form" class="">
                           <div class="span8 form-group">
-                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Valor" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                            <input type="text" class="form-control" name="amount" id="subject" placeholder="Valor" data-rule="minlen:4"/>
                             <div class="validation"></div>
                           </div>
                           <div class="cta center">
-                            <input type="submit" value="Ok" class="btn btn-medium btn-rounded btn-color">
+                            <input type="submit" name="btn-sacar" value="Ok" class="btn btn-medium btn-rounded btn-color">
                           </div>
                         </form>
                       </div>

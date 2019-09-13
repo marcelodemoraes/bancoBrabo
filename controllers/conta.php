@@ -11,57 +11,89 @@
 
 		// executado na url dominio.com.br/conta
 		public function index() {
-			// A função index() invoca a mesma tela do que a tela de Saldo.
-			$this->saldo();
-		}
-
-		// executado na url dominio.com.br/conta/extrato
-		public function extrato() {
-			// @TODO: Página simples que mostra os extratos do mês corrente.
-		}
-
-		// executado na url dominio.com.br/conta/saldo
-		public function saldo() {
 			// Esta tela irá exibir os dados básicos da conta de um usuário.
 			// Ela servirá como painel principal.
 			// Por enquanto o $userId é fixo, mas ele deverá ser carregado da 
 			// $_SESSION[] atual do usuário utilizando o sistema.
 
-			$userId = 1;
-			$contaModel = $this->carregarModel('conta');
-			$dadosConta = $contaModel->buscarConta($userId);
-			// $dadosConta = $contaModel->buscarContaAccountNumber('10001');
+			$userId = 8;
+			$usuarioModel = $this->carregarModel('usuario');
+			$contaModel   = $this->carregarModel('conta');
 
-			if(is_array($dadosConta)){
-				$this->carregarView('conta/cliente-dashboard', $dadosConta);
-			} else {
-				$this->carregarView('conta/cliente-dashboard');
+			$dadosView = array(
+				'formulario-transferencia' => '',
+				'formulario-saque'         => '',
+			);
+			$dadosView['account'] = $contaModel->buscarConta($userId);
+
+			if(isset($_POST['btn-transferir'])){
+				if($this->formTransferencia()){
+					$dadosView['formulario-transferencia'] = 'sucesso' ;
+				} else {
+					$dadosView['formulario-transferencia'] = 'erro';
+				}
+				$dadosView['account'] = $contaModel->buscarConta($userId);
+			} 
+
+			if(isset($_POST['btn-sacar'])){
+				if($this->formSacar()){
+					$dadosView['formulario-saque'] = 'sucesso' ;
+				} else {
+					$dadosView['formulario-saque'] = 'erro';
+				}
+				$dadosView['account'] = $contaModel->buscarConta($userId);
 			}
+
+			$this->carregarView('conta/cliente-dashboard', $dadosView);
 		}
 
 		// executado na url dominio.com.br/conta/sacar
-		public function sacar() {
+		public function formSacar() {
 			// Esta tela servirá para o usuário "Sacar" uma quantia de seu saldo.
 			// Neste caso, o seu saldo atual deve ser carregado e um valor deve ser subtraido do mesmo.
+			if(isset($_POST['btn-sacar'])){
+				$amount = (isset($_POST['amount'])) ? $_POST['amount'] : '';
 
-			$userId = 1;
-			$contaModel = $this->carregarModel('conta');
-			$dadosConta = $contaModel->buscarConta($userId);
+				$contaModel      = $this->carregarModel("conta");
+				$transacoesModel = $this->carregarModel("transacoes");
+			
+				$remetente = $contaModel->buscarConta(8);
+				
+				if(!$remetente || !is_numeric($amount) || $amount > $remetente['balance']) {
+					return false;
+				}
 
-			if(is_array($dadosConta) && $dadosConta['balance'] >= 100.50 ){
-				$contaModel->atualizarSaldo($dadosConta['id'], $dadosConta['balance']-50.0);
-				$dadosConta['balance'] -= 50.0;
+				$contaModel->atualizarSaldo($remetente['id'], $remetente['balance'] - $amount);
+				$transacoesModel->cadastrarTransacao($remetente['userId'], NULL, $amount);
+				return true;
 			}
 
-			$this->carregarView('conta/cliente-dashboard', $dadosConta);
+			return false;
 		}
 
 		// executado na url dominio.com.br/conta/transferir
-		public function transferir() {
-			// @TODO: Tela de transferencia de uma conta A para uma conta B.
-			//        Para isso ela deve primeiro verificar e atualizar o saldo de ambos os
-			//        usuários e, em seguida, cadastrar uma nova movimentação/transferencia 
-			//        no banco de dados.
+		private function formTransferencia() {
+			if(isset($_POST['btn-transferir'])){
+				$accountNumber    = (isset($_POST['accountNumber'])) ? $_POST['accountNumber'] : '';
+				$amount           = (isset($_POST['amount'])) ? $_POST['amount'] : '';
+
+				$contaModel      = $this->carregarModel("conta");
+				$transacoesModel = $this->carregarModel("transacoes");
+			
+				$remetente    = $contaModel->buscarConta(8);
+				$destinatario = $contaModel->buscarContaAccountNumber($accountNumber);
+				
+				if(!$remetente || !$destinatario || !is_numeric($amount) || $amount > $remetente['balance']) {
+					return false;
+				}
+
+				$contaModel->atualizarSaldo($remetente['id'], $remetente['balance'] - $amount);
+				$contaModel->atualizarSaldo($destinatario['id'], $destinatario['balance'] + $amount);
+				$transacoesModel->cadastrarTransacao($remetente['userId'], $destinatario['userId'], $amount);
+				return true;
+			}
+
+			return false;
 		}
     
 }
