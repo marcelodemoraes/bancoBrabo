@@ -5,8 +5,13 @@
 
 		// Construtor executado antes de todos os outros métodos
 		public function __construct() {
-			// @TODO: Aqui precisa fazer algum tipo de verificação?
-			// se sim insira aqui. 
+			global $METHOD;
+			$sessionModel = $this->carregarModel("session");
+			
+			if(!$sessionModel->verificarSessao()){
+				header('Location: '. BASE_URL);
+				exit();
+			}
 		}
 
 		// executado na url dominio.com.br/conta
@@ -16,9 +21,10 @@
 			// Por enquanto o $userId é fixo, mas ele deverá ser carregado da 
 			// $_SESSION[] atual do usuário utilizando o sistema.
 
-			$userId = 8;
+			$userId       = $_SESSION['id'];
 			$usuarioModel = $this->carregarModel('usuario');
 			$contaModel   = $this->carregarModel('conta');
+			$transacoesModel = $this->carregarModel('transacoes');
 
 			$dadosView = array(
 				'formulario-transferencia' => '',
@@ -44,6 +50,8 @@
 				$dadosView['account'] = $contaModel->buscarConta($userId);
 			}
 
+			$dadosView['extrato'] = $transacoesModel->buscarMes($userId);
+
 			$this->carregarView('conta/cliente-dashboard', $dadosView);
 		}
 
@@ -57,7 +65,7 @@
 				$contaModel      = $this->carregarModel("conta");
 				$transacoesModel = $this->carregarModel("transacoes");
 			
-				$remetente = $contaModel->buscarConta(8);
+				$remetente = $contaModel->buscarConta($_SESSION['id']);
 				
 				if(!$remetente || !is_numeric($amount) || $amount > $remetente['balance']) {
 					return false;
@@ -80,7 +88,7 @@
 				$contaModel      = $this->carregarModel("conta");
 				$transacoesModel = $this->carregarModel("transacoes");
 			
-				$remetente    = $contaModel->buscarConta(8);
+				$remetente    = $contaModel->buscarConta($_SESSION['id']);
 				$destinatario = $contaModel->buscarContaAccountNumber($accountNumber);
 				
 				if(!$remetente || !$destinatario || !is_numeric($amount) || $amount > $remetente['balance']) {

@@ -212,7 +212,7 @@
 										<input type="submit" name="btn-login" value="Entrar" class="btn btn-theme pull-left">
 									</form>	
 									<!-- Mensagens de Erro -->
-									<?php if(!is_null($viewData['formulario-cadastro']) && !$viewData['formulario-cadastro']): ?>
+									<?php if($viewData['formulario-login'] == 'erro'): ?>
 										<div class="alert alert-error" style="clear: both;">
 											<button type="button" class="close" data-dismiss="alert">×</button>
 											<strong>Falha no Login!</strong><br/> Verifique se o login e a senha estão corretos.
@@ -235,12 +235,12 @@
 										<input type="submit" name="btn-cadastrar" value="Cadastrar" class="btn btn-theme pull-left">
 									</form>
 										<!-- Mensagens de erro ou sucesso -->
-									<?php if(!is_null($viewData['formulario-cadastro']) && !$viewData['formulario-cadastro']): ?>
+									<?php if($viewData['formulario-cadastro'] == 'erro'): ?>
 										<div class="alert alert-error" style="clear: both;">
 											<button type="button" class="close" data-dismiss="alert">×</button>
 											<strong>Erro ao cadastrar!</strong><br/> por favor, verifique se os dados estão preenchidos corrrtamente.
 										</div>
-									<?php elseif(!is_null($viewData['formulario-cadastro']) && $viewData['formulario-cadastro']): ?>
+									<?php elseif($viewData['formulario-cadastro'] == 'sucesso'): ?>
 										<div class="alert alert-success" style="clear: both;">
 											<button type="button" class="close" data-dismiss="alert">×</button>
 											<strong>Cadastro Realizado!</strong><br/> utilize o formulário abaixo para continuar.

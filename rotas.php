@@ -33,6 +33,10 @@
 	$C = strtolower($C); //ucwords(str)
 	$M = strtolower($M);
 
+	// Variaveis Globais feitas para consultas do Controller e Metodo atual
+	$CONTROLLER = $C;
+	$METHOD     = $M;
+
 	// Antes de carregar as classes desejadas, precisamos carregar as classes pais
 	// que todos os controllers irão herdar
 	require(BASE_PATH.'/controllers/controller.php');

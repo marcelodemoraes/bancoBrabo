@@ -31,9 +31,10 @@
 			session_destroy();
 		}
 
-		public function verificarSessao($dados){
+		public function verificarSessao(){
+			session_start();
 			// Verifica se o usuario possui uma sessao em aberto.
-			return isset($_SESSION['id']) ? true : false; 
+			return (isset($_SESSION['id']) ? true : false); 
 		}
 
 	}

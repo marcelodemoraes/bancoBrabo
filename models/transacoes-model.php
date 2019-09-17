@@ -42,8 +42,16 @@
 			try {
 				// Abre a conexão com o banco
 				$conn = new PDO($dbConfig['dsn'], $dbConfig['user'], $dbConfig['pass']);
-				$sql  = "SELECT * FROM transactions WHERE userFrom = ? OR userFrom = ? 
-							ORDER BY id DESC LIMIT 30";
+				$sql  = "SELECT 
+							t.amount AS 'amount',
+							t.date AS 'date', 
+							af.accountNumber AS 'userFromNumber', 
+							at.accountNumber AS 'userToNumber'
+						FROM transactions AS t
+						INNER JOIN account  AS af ON af.userId = t.userFrom
+					    LEFT  JOIN  account AS at ON at.userId = t.userTo
+						WHERE t.userFrom = ? OR t.userTo = ? 
+						ORDER BY t.id DESC LIMIT 30";
 
 				if($conn){
 					// Prepara a query, executa e retorna o resultado
