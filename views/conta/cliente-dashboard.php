@@ -127,6 +127,9 @@
 
     <div class="container">
       <div class="row">
+        <div class="span12">
+          <p class="text-right">Minha conta: <strong><?php echo $viewData['account']['accountNumber']; ?></strong></p>
+        </div>
         <div class="span4">
           <div class="features">
               <div class="accordion" id="accordion6">
@@ -158,7 +161,7 @@
                         <form action="<?php echo BASE_URL; ?>conta" method="POST" role="form" class="">
                           <div class="span8 form-group">
                             <!-- falta colocar em um form -->
-                            <input type="text" class="form-control" name="accountNumber" id="subject" placeholder="Conta Destino" data-rule="minlen:4" required/>
+                            <input type="text" class="form-control" name="accountNumber" id="subject" placeholder="Número da Conta Destino" data-rule="minlen:4" required/>
                             <div class="validation"></div>
                           </div>
                           <div class="span8 form-group">
@@ -215,41 +218,60 @@
           <div class="cta-box">
             <div class="cta-text">
               <h2>Extrato</h2>
-              <div class="span11">
-                <hr>
-
-              </div>
+              <div class="span11"><hr></div>
               <div class="span12">
                   <table class="table table-hover">
                     <thead>
                       <tr>
                         <th> # </th>
                         <th> Tipo </th>
+                        <th> De/Para </th>
                         <th> Data </th>
                         <th> Valor </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td> 1 </td>
-                        <td> Depósito </td>
-                        <td> 08/07/2019 </td>
-                        <td style="color: green"> R$ 2.870,00 </td>
-                      </tr>
-                      <tr>
-                        <td> 2 </td>
-                        <td> Saque </td>
-                        <td> 24/08/2019 </td>
-                        <td style="color:red"> R$ 70,00 </td>
-                      </tr>
-                      <tr>
-                        <td> 3 </td>
-                        <td> Transferência </td>
-                        <td> 12/09/2019 </td>
-                        <td style="color:red"> R$ 800,00 </td>
-                      </tr>
+                      <?php 
+                        $rowCount = 1;
+                        if(is_array($viewData['extrato'])){
+                          foreach($viewData['extrato'] as $row) {
+                            $tipo   = '';
+                            $fromTo = '-';
+                            $color  = '';
+                            $dataHora = (new DateTime($row['date']))->format('d/m/Y H:i:s');
+                            $amount = number_format($row['amount'], 2, ",",".");
+                            
+                            if(is_null($row['userToNumber'])){
+                              $tipo  = 'Saque';
+                              $color = 'red';
+                            } elseif($row['userFromNumber'] == $viewData['account']['accountNumber']){
+                              $tipo   = 'Transferência';
+                              $color  = 'red';
+                              $fromTo = 'para conta Nº '. $row['userToNumber'];
+                            } else {
+                              $tipo   = 'Depósito';
+                              $color  = 'green';
+                              $fromTo = 'da conta Nº '. $row['userFromNumber'];
+                            }
+                            // echo 
+                            
+                            echo '<tr>';
+                            echo '<td>'. $rowCount++ .'</td>';
+                            echo "<td> $tipo </td>";
+                            echo "<td> $fromTo </td>";
+                            echo "<td> $dataHora </td>";
+                            echo "<td style=\"color: $color\"> R$ $amount </td>";
+
+                          }
+                        }
+                      ?>
                     </tbody>
                   </table>
+                 
+                  <?php if(!is_array($viewData['extrato'])): ?>
+                  <p><strong>Ainda não houveram movimentações nesta conta.</strong></p>
+                  <?php endif; ?>
+
                 </div>
             </div>
           </div>
